@@ -1,0 +1,48 @@
+{
+  "name": "nuxt4-sanity-template-studio",
+  "private": true,
+  "version": "0.0.0",
+  "main": "package.json",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "prebuild": "yarn extract-types",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "deploy-graphql": "sanity graphql deploy",
+    "extract-types": "sanity schema extract --enforce-required-fields",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx . --cache",
+    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx . --cache --fix",
+    "format": "prettier --write --cache ./src"
+  },
+  "keywords": [
+    "sanity"
+  ],
+  "dependencies": {
+    "@sanity/ui": "^3.0.14",
+    "@sanity/vision": "^4.6.1",
+    "groq": "^4.6.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-icons": "^5.5.0",
+    "react-is": "^19.1.1",
+    "rxjs": "^7.8.2",
+    "sanity": "^4.6.1",
+    "sanity-plugin-iframe-pane": "^4.0.0",
+    "sanity-plugin-media": "^4.0.0",
+    "sanity-plugin-vercel-deploy": "^4.0.0-beta.1",
+    "styled-components": "^6.1.19",
+    "ufo": "^1.6.1",
+    "vite": "^7.1.4"
+  },
+  "devDependencies": {
+    "@sanity/eslint-config-studio": "^5.0.2",
+    "@types/react": "^19.1.1",
+    "@types/react-is": "^19.0.0",
+    "eslint": "^9.35.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2"
+  },
+  "packageManager": "yarn@4.9.4"
+}

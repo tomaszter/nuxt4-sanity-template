@@ -1,0 +1,23 @@
+{
+   "name": "nuxt4-sanity-template-web",
+   "private": true,
+   "scripts": {
+      "dev": "yarn workspaces foreach --all --parallel run dev",
+      "dev:app": "yarn workspace nuxt4-sanity-template-app run dev",
+      "dev:studio": "yarn workspace nuxt4-sanity-template-studio run dev",
+      "extract-types": "yarn workspace nuxt4-sanity-template-studio run extract-types",
+      "typegen": "yarn workspace nuxt4-sanity-template-app run sanity:typegen"
+   },
+   "keywords": [
+      "Sanity",
+      "Nuxt",
+      "Headless CMS",
+      "Visual Editing",
+      "Live Content API (LCAPI)",
+      "Real-time"
+   ],
+   "workspaces": [
+      "packages/*"
+   ],
+   "packageManager": "yarn@4.9.4"
+}

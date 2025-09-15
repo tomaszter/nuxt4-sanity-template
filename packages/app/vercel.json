@@ -1,0 +1,8 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nuxtjs",
+  "devCommand": "nuxt dev",
+  "version": 2,
+  "regions": ["cdg"],
+  "rewrites": [{ "source": "/(.*)", "destination": "/404.html" }]
+}
