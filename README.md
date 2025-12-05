@@ -1,6 +1,6 @@
 # Nuxt 4 + Sanity template
 
-A simple monorepo consisting of an Nuxt 4 app and Sanity.io studio.
+A simple monorepo featuring a Nuxt 4 app and a Sanity.io studio, serving as a clean starting point for new projects.
 
 ---
 
