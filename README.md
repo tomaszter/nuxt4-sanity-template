@@ -32,6 +32,3 @@ $ yarn deploy
 
 ---
 
-### Copyright
-
-&copy; [Fount AG](https://www.fount.ch/)
