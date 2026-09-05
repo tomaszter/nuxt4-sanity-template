@@ -6,7 +6,10 @@
       "dev:app": "yarn workspace nuxt4-sanity-template-app run dev",
       "dev:studio": "yarn workspace nuxt4-sanity-template-studio run dev",
       "extract-types": "yarn workspace nuxt4-sanity-template-studio run extract-types",
-      "typegen": "yarn workspace nuxt4-sanity-template-app run sanity:typegen"
+      "typegen": "yarn workspace nuxt4-sanity-template-studio run typegen",
+      "typecheck": "yarn workspaces foreach --all run typecheck",
+      "lint": "yarn workspaces foreach --all run lint",
+      "build": "yarn workspaces foreach --all run build"
    },
    "keywords": [
       "Sanity",
@@ -19,5 +22,8 @@
    "workspaces": [
       "packages/*"
    ],
-   "packageManager": "yarn@4.9.4"
+   "packageManager": "yarn@4.9.4",
+   "engines": {
+      "node": "^22.19.0 || ^24.11.0 || >=26.0.0"
+   }
 }

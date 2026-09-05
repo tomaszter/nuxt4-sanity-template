@@ -16,7 +16,15 @@ export default defineCliConfig({
    * Enable auto-updates for studios.
    * Learn more at https://www.sanity.io/docs/cli#auto-updates
    */
-  autoUpdates: false,
+  deployment: {
+    autoUpdates: false,
+  },
+  typegen: {
+    path: '../app/sanity/queries/**/*.{ts,js}',
+    schema: 'schema.json',
+    generates: '../app/sanity/types.ts',
+    overloadClientMethods: true,
+  },
   vite: {
     resolve: {
       alias: {

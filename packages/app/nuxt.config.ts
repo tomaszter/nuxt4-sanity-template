@@ -1,3 +1,4 @@
+import tailwindcss from '@tailwindcss/vite';
 import {
   breakpoints,
   defaultBreakpoints,
@@ -27,16 +28,14 @@ export default defineNuxtConfig({
     '@nuxtjs/sanity',
     '@nuxtjs/seo',
     'nuxt-viewport',
-    '@nuxtjs/tailwindcss',
     '@vueuse/nuxt',
     '@vite-pwa/nuxt',
     '@hypernym/nuxt-gsap',
+    '@vercel/analytics/nuxt',
   ],
   app: {
     head: {
       meta: [
-        { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'format-detection', content: 'telephone=no' },
         { name: 'msapplication-TileColor', content: '#ffffff' },
         { name: 'theme-color', content: '#ffffff' },
@@ -88,7 +87,7 @@ export default defineNuxtConfig({
       './utils/**/*.{ts,js}',
     ],
   },
-  css: ['lenis/dist/lenis.css'], // Import lenis css
+  css: ['~/assets/css/main.css', 'lenis/dist/lenis.css'],
   nitro: {
     prerender: {
       crawlLinks: true,
@@ -124,12 +123,6 @@ export default defineNuxtConfig({
     trailingSlash: false,
   },
   sanity: {},
-  tailwindcss: {
-    cssPath: '~/assets/css/main.css',
-    viewer: true,
-    config: './tailwind.config.ts',
-    exposeConfig: false,
-  },
   viewport: {
     breakpoints,
     defaultBreakpoints,
@@ -172,6 +165,7 @@ export default defineNuxtConfig({
     },
   },
   vite: {
+    plugins: [tailwindcss()],
     optimizeDeps: {
       exclude: ['@sanity/client', 'lenis'],
       include: ['@sanity/image-url'],

@@ -1,5 +1,4 @@
 <template>
-  <VercelAnalytics />
   <NuxtPwaManifest />
   <NuxtLayout>
     <NuxtPage />

@@ -2,7 +2,7 @@ import imageUrlBuilder from '@sanity/image-url';
 import type {
   SanityClientLike,
   SanityImageSource,
-} from '@sanity/image-url/lib/types/types';
+} from '@sanity/image-url';
 
 export default defineNuxtPlugin({
   name: 'sanity-image-url',

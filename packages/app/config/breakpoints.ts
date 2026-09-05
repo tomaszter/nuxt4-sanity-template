@@ -1,3 +1,4 @@
+// Keep these in sync with the @theme breakpoints in app/assets/css/main.css.
 export const breakpoints = {
   xs: 320,
   sm: 640,
@@ -10,17 +11,6 @@ export const breakpoints = {
 };
 
 export const sizes = Object.values(breakpoints).sort;
-
-// For tailwind config
-export const screens = (
-  Object.keys(breakpoints) as (keyof typeof breakpoints)[]
-).reduce(
-  (results, breakpoint) => {
-    results[breakpoint] = `${breakpoints[breakpoint]}px`;
-    return results;
-  },
-  {} as Record<keyof typeof breakpoints, string>
-);
 
 // An object where the key is the name of the detected device, and the value is the breakpoint key.
 export const defaultBreakpoints = {

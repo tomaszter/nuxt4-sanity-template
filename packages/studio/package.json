@@ -7,42 +7,46 @@
   "scripts": {
     "dev": "sanity dev",
     "start": "sanity start",
-    "prebuild": "yarn extract-types",
-    "build": "sanity build",
+    "build": "yarn extract-types && sanity build",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy",
-    "extract-types": "sanity schema extract --enforce-required-fields",
+    "extract-types": "sanity schema extract --enforce-required-fields --force",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx . --cache",
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx . --cache --fix",
-    "format": "prettier --write --cache ./src"
+    "format": "prettier --write --cache ./src",
+    "typecheck": "tsc --noEmit",
+    "typegen": "sanity typegen generate"
   },
   "keywords": [
     "sanity"
   ],
   "dependencies": {
-    "@sanity/ui": "^3.0.14",
-    "@sanity/vision": "^4.6.1",
-    "groq": "^4.6.1",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "react-icons": "^5.5.0",
-    "react-is": "^19.1.1",
+    "@sanity/ui": "^4.0.7",
+    "@sanity/vision": "^6.12.0",
+    "groq": "^6.12.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-icons": "^5.7.0",
+    "react-is": "^19.2.8",
     "rxjs": "^7.8.2",
-    "sanity": "^4.6.1",
-    "sanity-plugin-iframe-pane": "^4.0.0",
-    "sanity-plugin-media": "^4.0.0",
-    "sanity-plugin-vercel-deploy": "^4.0.0-beta.1",
-    "styled-components": "^6.1.19",
-    "ufo": "^1.6.1",
-    "vite": "^7.1.4"
+    "sanity": "^6.12.0",
+    "sanity-plugin-iframe-pane": "^5.0.35",
+    "sanity-plugin-media": "^6.1.8",
+    "styled-components": "^6.5.3",
+    "ufo": "^1.6.4",
+    "vite": "^8.2.2"
   },
   "devDependencies": {
-    "@sanity/eslint-config-studio": "^5.0.2",
-    "@types/react": "^19.1.1",
-    "@types/react-is": "^19.0.0",
-    "eslint": "^9.35.0",
-    "prettier": "^3.6.2",
-    "typescript": "^5.9.2"
+    "@sanity/cli": "^8.9.1",
+    "@sanity/eslint-config-studio": "^7.0.0",
+    "@types/react": "^19.2.18",
+    "@types/react-is": "^19.2.0",
+    "eslint": "^10.10.0",
+    "prettier": "^3.9.6",
+    "typescript": "^5.9.3"
   },
-  "packageManager": "yarn@4.9.4"
+  "packageManager": "yarn@4.9.4",
+  "engines": {
+    "node": "^22.19.0 || ^24.11.0 || >=26.0.0"
+  }
 }

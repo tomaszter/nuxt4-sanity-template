@@ -5,6 +5,8 @@ import { defineNuxtModule } from 'nuxt/kit';
 export default defineNuxtModule({
   meta: { name: 'extend-sanity-provider' },
   setup(_, nuxt) {
+    if (!nuxt.options.image) return;
+
     const opts = nuxt.options.runtimeConfig.public.sanity;
     //   Set provider to 'sanity' if it's 'ipx' by default
     nuxt.options.image.provider =
@@ -12,8 +14,10 @@ export default defineNuxtModule({
         ? 'sanity'
         : nuxt.options.image.provider;
 
-    nuxt.options.image.sanity ||= {};
-    nuxt.options.image.sanity.projectId = opts.projectId;
-    nuxt.options.image.sanity.dataset = opts.dataset;
+    nuxt.options.image.sanity = {
+      ...nuxt.options.image.sanity,
+      projectId: opts.projectId,
+      dataset: opts.dataset,
+    };
   },
 });
