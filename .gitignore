@@ -80,3 +80,8 @@ sw.*
 
 # Linters and formatters
 .eslintcache
+
+# Local setup resume state and environment variants
+.setup-state.json
+.env.*
+!.env.example

@@ -7,7 +7,7 @@ type LenisInstanceId = string | number | symbol;
 export default defineNuxtPlugin({
   name: 'lenis',
   setup() {
-    const scrollTrigger = useNuxtApp().$ScrollTrigger;
+    const { $gsap: gsap, $ScrollTrigger: scrollTrigger } = useNuxtApp();
 
     // Storage for Lenis ticker raf callbacks to unsubscribe
     const tickerRafCallbacks = new Map<
@@ -31,7 +31,7 @@ export default defineNuxtPlugin({
       }
 
       // Initialize a new Lenis instance for smooth scrolling
-      const lenis = new Lenis(options);
+      const lenis = new Lenis({ ...options, autoRaf: false });
 
       // Synchronize Lenis scrolling with GSAP's ScrollTrigger plugin
       lenis.on('scroll', scrollTrigger.update);

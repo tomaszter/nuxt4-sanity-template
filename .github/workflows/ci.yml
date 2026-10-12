@@ -1,0 +1,32 @@
+name: Template checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      NUXT_PUBLIC_SANITY_PROJECT_ID: unconfigured
+      NUXT_SANITY_PREVIEW: "false"
+      SANITY_STUDIO_PROJECT_ID: unconfigured
+      SANITY_CLI_NO_TELEMETRY: "1"
+      NUXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: corepack enable
+      - run: corepack yarn install --immutable
+      - run: corepack yarn test
+      - run: corepack yarn extract-types
+      - run: corepack yarn typegen
+      - run: corepack yarn typecheck
+      - run: corepack yarn lint
+      - run: corepack yarn --cwd packages/studio build
+      - run: node tests/integration.mjs ssr
+      - run: node tests/integration.mjs static
+      - run: node tests/integration.mjs preview

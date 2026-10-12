@@ -5,19 +5,26 @@ import {
   fallbackBreakpoint,
 } from './config/breakpoints';
 
+// Preview is opt-in and is never bundled into static production output.
+const previewEnabled =
+  process.env.NUXT_SANITY_PREVIEW === 'true' &&
+  process.env.NUXT_BUILD_MODE !== 'static';
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       site: {
-        url: process.env.NUXT_PUBLIC_SITE_URL || 'https://www.example.com',
+        url: process.env.NUXT_PUBLIC_SITE_URL || '',
         name: process.env.NUXT_PUBLIC_SITE_NAME || 'Nuxt 4 + Sanity',
       },
       sanity: {
         projectId: process.env.NUXT_PUBLIC_SANITY_PROJECT_ID || '',
         dataset: process.env.NUXT_PUBLIC_SANITY_DATASET || 'production',
-        apiVersion: process.env.NUXT_PUBLIC_SANITY_API_VERSION || '2023-03-14',
-        useCdn: true,
+        apiVersion: process.env.NUXT_PUBLIC_SANITY_API_VERSION || '2025-02-19',
+        useCdn: false,
+        apiHost:
+          process.env.NUXT_PUBLIC_SANITY_API_HOST || 'https://api.sanity.io',
+        useProjectHostname: !process.env.NUXT_PUBLIC_SANITY_API_HOST,
       },
     },
   },
@@ -90,7 +97,8 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css', 'lenis/dist/lenis.css'],
   nitro: {
     prerender: {
-      crawlLinks: true,
+      crawlLinks: process.env.NUXT_BUILD_MODE === 'static',
+      failOnError: true,
     },
   },
   image: {
@@ -114,21 +122,44 @@ export default defineNuxtConfig({
     },
   },
   sitemap: {
-    experimentalCompression: true,
-    defaults: {
-      lastmod: new Date().toISOString().slice(0, 10),
-    },
+    sources: ['/api/__sitemap__/urls'],
+    exclude: ['/preview/**'],
+    autoI18n: false,
   },
+  ogImage: { enabled: false },
+  schemaOrg: { defaults: false },
   site: {
     trailingSlash: false,
+    indexable: !previewEnabled,
   },
-  sanity: {},
+  sanity: {
+    apiVersion: '2025-02-19',
+    perspective: 'published',
+    useCdn: false,
+    ...(previewEnabled
+      ? {
+          visualEditing: {
+            token: process.env.NUXT_SANITY_VISUAL_EDITING_TOKEN || '',
+            studioUrl:
+              process.env.NUXT_SANITY_VISUAL_EDITING_STUDIO_URL ||
+              'http://localhost:3333',
+            mode: 'live-visual-editing',
+            stega: false,
+            previewMode: {
+              enable: '/preview/enable',
+              disable: '/preview/disable',
+            },
+          },
+        }
+      : {}),
+  },
   viewport: {
     breakpoints,
     defaultBreakpoints,
     fallbackBreakpoint,
   },
   pwa: {
+    disable: previewEnabled || process.env.NUXT_ENABLE_PWA !== 'true',
     strategies: 'generateSW',
     registerType: 'autoUpdate',
     // mode: 'development',
@@ -138,6 +169,9 @@ export default defineNuxtConfig({
     workbox: {
       globPatterns: ['**/*.{js,css,html,png,webp,jpg,svg,gif,ico,woff,woff2}'],
       navigateFallbackDenylist: [
+        /^\/api\//,
+        /^\/preview\//,
+        /^\/_sanity\//,
         /\/sitemap.xml/,
         /\/robots.txt/,
         /\/__sitemap__\//,
@@ -145,8 +179,8 @@ export default defineNuxtConfig({
       cleanupOutdatedCaches: true,
     },
     manifest: {
-      name: process.env.NUXT_PUBLIC_SITE_NAME || 'Raumkonzept Schweiz',
-      short_name: process.env.NUXT_PUBLIC_SITE_NAME || 'Raumkonzept Schweiz',
+      name: process.env.NUXT_PUBLIC_SITE_NAME || 'Website',
+      short_name: process.env.NUXT_PUBLIC_SITE_NAME || 'Website',
       theme_color: '#ffffff',
       background_color: '#ffffff',
       display: 'standalone',
@@ -162,6 +196,14 @@ export default defineNuxtConfig({
           type: 'image/png',
         },
       ],
+    },
+  },
+  // Dependency CSS must use the application's browser targets, not unpublished
+  // development-only Browserslist configs shipped by preview packages.
+  postcss: {
+    plugins: {
+      autoprefixer: { overrideBrowserslist: ['defaults'] },
+      cssnano: { preset: ['default', { overrideBrowserslist: ['defaults'] }] },
     },
   },
   vite: {

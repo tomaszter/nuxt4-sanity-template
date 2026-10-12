@@ -1,16 +1,11 @@
-<template>
-  <div>
-    <h1>Error page</h1>
-    <div>Also used as 404 page for Vercel</div>
-    <div>
-      <!-- Error coming from Nuxt or 404 Page not found -->
-      {{ error ?? 404 }}
-    </div>
-  </div>
-</template>
-
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { NuxtError } from '#app';
-
-const { error } = defineProps<{ error?: NuxtError }>();
+defineProps<{ error?: NuxtError }>();
 </script>
+<template>
+  <main class="mx-auto max-w-3xl px-6 py-20">
+    <h1 class="mb-4 text-4xl">{{ error?.statusCode || 500 }}</h1>
+    <p>{{ error?.statusMessage || 'Something went wrong' }}</p>
+    <NuxtLink to="/" class="mt-8 inline-block underline">Home</NuxtLink>
+  </main>
+</template>

@@ -129,10 +129,10 @@ export function useMainScrollerSetup(
 }
 
 export function useMainScrollerInstance() {
-  return inject<ShallowRef<ScrollSmoother | null>>(SCROLLER_INJECTION_KEY);
+  return inject<ShallowRef<Lenis | null>>(SCROLLER_INJECTION_KEY);
 }
 
-export function onMainScrollerReady(cb: (scroller?: ScrollSmoother) => void) {
+export function onMainScrollerReady(cb: (scroller?: Lenis) => void) {
   const mainScroller = useMainScrollerInstance();
 
   if (

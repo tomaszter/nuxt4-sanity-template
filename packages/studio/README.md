@@ -1,9 +1,7 @@
-# Sanity Clean Content Studio
+# Website Studio
 
-Congratulations, you have now installed the Sanity Content Studio, an open-source real-time content editing environment connected to the Sanity backend.
+Run `yarn setup` and `yarn dev` from the repository root.
+See the [starter README](../../README.md) for project creation and the translation workflow.
 
-Now you can do the following things:
-
-- [Read “getting started” in the docs](https://www.sanity.io/docs/introduction/getting-started?utm_source=readme)
-- [Join the Sanity community](https://www.sanity.io/community/join?utm_source=readme)
-- [Extend and build plugins](https://www.sanity.io/docs/content-studio/extending?utm_source=readme)
+Schemas live in `src/schemaTypes`. Website settings are a singleton; languages,
+Home assignments and navigation are maintained there, not in code.
